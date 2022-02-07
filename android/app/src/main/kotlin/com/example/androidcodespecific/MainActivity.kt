@@ -27,12 +27,15 @@ import android.os.Build
 import android.os.AsyncTask
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
 class MainActivity: FlutterActivity() {
 private val CHANNEL = "com.example.androidcodespecific/method"
+
+
   override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
     super.configureFlutterEngine(flutterEngine)
    
@@ -54,7 +57,7 @@ private val CHANNEL = "com.example.androidcodespecific/method"
             iconName,
             typeDef,
             context.packageName
-    )
+             )
         Timer().schedule(2000) {
           with(NotificationManagerCompat.from(context)) {
             // notificationId is a unique int for each notification that you must define
@@ -64,7 +67,8 @@ private val CHANNEL = "com.example.androidcodespecific/method"
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val service: String = Context.NOTIFICATION_SERVICE
     
-                val name = "OLA JAIMITKUMAR"
+                // val name = "OLA JAIMITKUMAR"
+                val name = call.argument<String>("name")
                 val descriptionText = "THIS IS DESCRITION"
                 val importance = NotificationManager.IMPORTANCE_DEFAULT
                 val channel = NotificationChannel("My_Id", name, importance).apply {
@@ -79,7 +83,7 @@ private val CHANNEL = "com.example.androidcodespecific/method"
             val builder = NotificationCompat.Builder(context, "My_Id")
                     .setSmallIcon(smallIcon)
                     .setContentTitle("YOU CRACKED IT FINALLY")
-                    .setContentText("Hello JAIMITKUMAR PANCHAL")
+                    .setContentText("Hello" + call.argument<String>("name"))
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
     
             val someNotificationId = 1;

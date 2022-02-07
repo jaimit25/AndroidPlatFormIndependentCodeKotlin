@@ -47,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     await methodChannel.invokeMethod('showBasicNotification', {
       "smallIconName": smallIconName,
       "smallIconDefType": smallIconDefType,
+      "name" : " Jaimitkumar Panchal"
     });
     return "Done";
   }
